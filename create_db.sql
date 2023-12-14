@@ -14,3 +14,19 @@ CREATE TABLE topics (
 ALTER TABLE topics
 MODIFY name VARCHAR(50) NOT NULL;
 INSERT INTO topics (name) VALUES("Mathematics"), ("History"), ("Computer Science");
+
+CREATE TABLE users (
+	user_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) UNIQUE
+);
+
+INSERT INTO users (first_name, last_name, username, email)
+VALUES ("John", "Doe", "JohnDoe456","jdoe@gmail.com"),
+	   ("Jane", "Smith", "JaneSmith123","jsmith@gmail.com"),
+       ("Tony", "Stark", "TonyStark789","tstark@gmail.com");
+
+INSERT INTO users (first_name, last_name, username, email)
+VALUES ("John", "Doe", "JohnDoe454","jdoe@gmail.cos");

@@ -21,7 +21,18 @@ module.exports = function(app, forumData) {
         })
     });
     app.get('/users',function(req,res){
-        res.render("users.ejs", forumData);
+        let sqlquery = "SELECT * FROM users";
+
+        db.query(sqlquery, (err, result) => {
+            if (err) {
+                res.redirect('./');
+            }
+            // updates shopData to have books from the db which are less than £20
+            let newData = Object.assign({}, forumData, {users: result});
+            console.log(newData);
+            res.render("users.ejs", newData);
+        })
+        // res.render("users.ejs", forumData);
     });
     // app.get('/search-result', function (req, res) {
     //     //searching in the database
