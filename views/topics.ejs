@@ -5,7 +5,11 @@
     <link rel="stylesheet"  type="text/css" href="/main.css" />
   </head>
   <body>
-    <h1>Topics in <%=forumName%></h1>
-    <p>Here is a list of topics!</p>
+    <% availableTopics.map((book)=>{ %>
+      <div class="card">
+        <!-- card which contains information about the books below £20 -->
+        <h4><%=book.name%></h4>
+      </div>
+      <% }) %>
   </body>
 </html>

@@ -2,7 +2,22 @@
 var express = require ('express')
 var ejs = require('ejs')
 var bodyParser= require ('body-parser')
-
+var mysql = require('mysql');
+// Define the database connection
+const db = mysql.createConnection ({
+    host: 'localhost',
+    user: 'appuser',
+    password: 'app2027',
+    database: 'myforum'
+  });
+// Connect to the database
+db.connect((err) => {
+  if (err) {
+    throw err;
+  }
+  console.log('Connected to database');
+});
+global.db = db;
 // Create the express application object
 const app = express()
 const port = 8000

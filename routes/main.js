@@ -8,7 +8,17 @@ module.exports = function(app, forumData) {
         res.render('about.ejs', forumData)
     });
     app.get('/topics',function(req,res){
-        res.render('topics.ejs', forumData);
+        let sqlquery = "SELECT * FROM topics";
+
+        db.query(sqlquery, (err, result) => {
+            if (err) {
+                res.redirect('./');
+            }
+            // updates shopData to have books from the db which are less than £20
+            let newData = Object.assign({}, forumData, {availableTopics: result});
+            console.log(newData);
+            res.render("topics.ejs", newData);
+        })
     });
     app.get('/users',function(req,res){
         res.render("users.ejs", forumData);
