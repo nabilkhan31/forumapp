@@ -23,10 +23,10 @@ app.set('view engine', 'ejs');
 app.engine('html', ejs.renderFile);
 
 // Define our data
-var shopData = {shopName: "Forum App"}
+var forumData = {forumName: "Forum App"}
 
 // Requires the main.js file inside the routes folder passing in the Express app and data as arguments.  All the routes will go in this file
-require("./routes/main")(app, shopData);
+require("./routes/main")(app, forumData);
 
 // Start the web app listening
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
