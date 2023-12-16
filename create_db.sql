@@ -1,6 +1,7 @@
 # Create database script for Berties books
 
 # Create the database
+DROP DATABASE myforum;
 CREATE DATABASE myforum;
 USE myforum;
 drop user appuser@localhost;
