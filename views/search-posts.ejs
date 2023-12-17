@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Search Results</title>
+    <!-- <link rel="stylesheet"  type="text/css" href="/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+  </head>
+  <body>
+    <!-- <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a> -->
+    <h1>You searched for these books in <%=forumName%></h1>
+    <!-- if users array is empty, return a message saying there are no items -->
+    <% if(users.length === 0){ %>
+      <p>Sorry, the book you're looking for does not exist</p>
+    <% } %>
+    <div class="list-container">
+      <!-- map over users array as it is cleaner and easier to implement features in the future like deletion -->
+      <% users.map((book)=>{ %>
+        <!-- The items being rendered are what the user searched for -->
+        <div class="card">
+          <h4><%=book.first_name%> <span id="author-text"><%=book.last_name%></span><span id="author-text"><%=book.username%></span></h3>
+          <p><%=book.name%></p>
+          <p><%=book.post_date.toString().substring(0,15)%></p>
+          <p><%=book.post_time%></p>
+          <!-- <p id="description-bold">Description</p> -->
+          <p id="description-body"><%=book.content%></p>
+        </div>
+        <% }) %>
+    </div>
+  </body>
+</html>

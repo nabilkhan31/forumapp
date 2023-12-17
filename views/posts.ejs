@@ -6,5 +6,10 @@
   </head>
   <body>
     <h1>Posts for <%=forumName%></h1>
+    <form action="/search-posts" method="GET">
+      <p>What posts do you want?</p>
+      <input id="search-box" type="text" name="keyword" value="">
+      <input type="submit" value="Search" >
+    </form>
   </body>
 </html>
