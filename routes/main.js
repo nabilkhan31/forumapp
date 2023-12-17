@@ -35,8 +35,20 @@ module.exports = function(app, forumData) {
     });
 
     app.get('/posts', function (req,res) {
-        res.render('posts.ejs', forumData);                                                                     
-    });        
+        let sqlquery = "SELECT posts.content,DATE(posts.timestamp) AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username FROM posts INNER JOIN topics ON posts.topic_id = topics.topic_id INNER JOIN users ON posts.user_id = users.user_id ORDER BY posts.timestamp DESC;"
+
+        db.query(sqlquery, (err, result) => {
+            if (err) {
+                res.redirect('./');
+            }
+            // updates forumData with all the books which have the characters from req.query.keyword
+            let newData = Object.assign({}, forumData, {users: result});
+            console.log(newData);
+            res.render("posts.ejs", newData);
+        })
+    })
+        // res.render('posts.ejs', forumData);                                                           
+       
     app.get('/addPosts', function (req,res) {
         res.render('addPosts.ejs', forumData);                                                                     
     });
@@ -51,7 +63,8 @@ module.exports = function(app, forumData) {
 
             if (result.length === 0) {
                 // User with the specified username does not exist
-                return res.status(400).send("User not found.");
+                res.render('usernotfound.ejs', forumData);
+                // return res.status(400).send("User not found.");
             }
 
             else {
@@ -63,7 +76,7 @@ module.exports = function(app, forumData) {
 
                     if (result.length === 0) {
                         // User with the specified username does not exist
-                        return res.status(400).send("Topic not found.");
+                        res.render('topicnotfound.ejs', forumData);
                     }
                     else {
                         let topicId = result[0].topic_id;
@@ -76,7 +89,10 @@ module.exports = function(app, forumData) {
                           }
                           else {
                             // sends book details
-                            res.send(' This book is added to database, Name: ' + req.body.username + ', Author: ' + req.body.topic + ', Price: '+ req.body.content);
+                            let newData = Object.assign({}, forumData, {users: req.body.topic});
+                            console.log(newData);
+                            res.render("postadded.ejs", newData);
+                            // res.send(' This book is added to database, Name: ' + req.body.username + ', Author: ' + req.body.topic + ', Price: '+ req.body.content);
                           }
                         });
                     }
@@ -87,7 +103,8 @@ module.exports = function(app, forumData) {
 
     app.get('/search-posts', function (req, res) {
         // returns records which are like the keyword inputted by user, advanced
-        let sqlquery = "SELECT posts.content,DATE(posts.timestamp) AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username FROM posts INNER JOIN topics ON posts.topic_id = topics.topic_id INNER JOIN users ON posts.user_id = users.user_id WHERE topics.name LIKE " + '"%' +req.query.keyword +'%"';
+
+        let sqlquery = "SELECT posts.content,DATE(posts.timestamp) AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username FROM posts INNER JOIN topics ON posts.topic_id = topics.topic_id INNER JOIN users ON posts.user_id = users.user_id WHERE topics.name = '" + req.query.keyword + "' ORDER BY posts.timestamp DESC;";
 
         db.query(sqlquery, (err, result) => {
             if (err) {

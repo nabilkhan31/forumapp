@@ -3,8 +3,10 @@
   <head>
     <title>Search <%=forumName%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
+    <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a>
     <h1>List of users in <%=forumName%></h1>
     <% users.map((user)=>{ %>
       <h4><%=user.first_name + " " + user.last_name%></h4>

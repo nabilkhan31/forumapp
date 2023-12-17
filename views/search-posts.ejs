@@ -2,15 +2,16 @@
 <html>
   <head>
     <title>Search Results</title>
-    <!-- <link rel="stylesheet"  type="text/css" href="/main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet"  type="text/css" href="/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
-    <!-- <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a> -->
+    <a href="/posts"><button class="home-btn"><i class="fa fa-arrow-left"></i> View All Posts</button></a>
     <h1>You searched for these books in <%=forumName%></h1>
     <!-- if users array is empty, return a message saying there are no items -->
     <% if(users.length === 0){ %>
-      <p>Sorry, the book you're looking for does not exist</p>
+      <p>Sorry, the topic you're looking for does not exist</p>
+      <a href="topics">Click here to view the list of topics</a>
     <% } %>
     <div class="list-container">
       <!-- map over users array as it is cleaner and easier to implement features in the future like deletion -->

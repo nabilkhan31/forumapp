@@ -3,13 +3,31 @@
   <head>
     <title>Register for <%=forumName%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
+    <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a>
     <h1>Posts for <%=forumName%></h1>
     <form action="/search-posts" method="GET">
-      <p>What posts do you want?</p>
+      <p>Search for a particular topic</p>
       <input id="search-box" type="text" name="keyword" value="">
       <input type="submit" value="Search" >
     </form>
+    <h1>All Posts</h1>
+    <div class="list-container">
+      
+      <!-- map over users array as it is cleaner and easier to implement features in the future like deletion -->
+      <% users.map((book)=>{ %>
+        <!-- The items being rendered are what the user searched for -->
+        <div class="card">
+          <h4><%=book.first_name%> <span id="author-text"><%=book.last_name%></span><span id="author-text"><%=book.username%></span></h3>
+          <p><%=book.name%></p>
+          <p><%=book.post_date.toString().substring(0,15)%></p>
+          <p><%=book.post_time%></p>
+          <!-- <p id="description-bold">Description</p> -->
+          <p id="description-body"><%=book.content%></p>
+        </div>
+        <% }) %>
+    </div>
   </body>
 </html>

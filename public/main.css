@@ -1,4 +1,4 @@
-h1 , h4{
+/* h1{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     color: darkcyan;
@@ -18,26 +18,30 @@ a:link {
     color: orangered;
     text-decoration: none;
     padding:5px;
-  }
+  } */
   
   /* visited link */
-  a:visited {
+  /* a:visited {
     color: tomato;
     text-decoration: none;
     padding:5px;
-  }
+  } */
   
   /* mouse over link */
-  a:hover {
+  /* a:hover {
     color: white;
     text-decoration: none;
     background-color: orangered;
     padding:5px;
-  }
+  } */
   
   /* selected link */
-  a:active {
+  /* a:active {
     color: blue;
     text-decoration: none;
     padding:5px;
+  } */
+
+  body {
+    text-align: center;
   }
