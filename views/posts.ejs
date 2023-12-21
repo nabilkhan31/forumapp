@@ -15,17 +15,13 @@
     </form>
     <h1>All Posts</h1>
     <div class="list-container">
-      
-      <!-- map over users array as it is cleaner and easier to implement features in the future like deletion -->
-      <% users.map((book)=>{ %>
-        <!-- The items being rendered are what the user searched for -->
+      <% users.map((post)=>{ %>
         <div class="card">
-          <h4><%=book.first_name%> <span id="author-text"><%=book.last_name%></span><span id="author-text"><%=book.username%></span></h3>
-          <p><%=book.name%></p>
-          <p><%=book.post_date.toString().substring(0,15)%></p>
-          <p><%=book.post_time%></p>
-          <!-- <p id="description-bold">Description</p> -->
-          <p id="description-body"><%=book.content%></p>
+          <p class="post-date"><%=post.post_date.toString().substring(0,15) %> <%=post.post_time%></p>
+          <h4 class="author"><%=post.first_name%> <%=post.last_name%><span id="author-username"> @<%=post.username%></span></h4>
+          <p class="post-topic"><b>Topic:</b> <%=post.name%></p>
+          <p></p>
+          <p id="description-body"><%=post.content%></p>
         </div>
         <% }) %>
     </div>

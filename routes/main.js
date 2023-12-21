@@ -20,6 +20,26 @@ module.exports = function(app, forumData) {
             res.render("topics.ejs", newData);
         })
     });
+
+    app.post('/topicadded',function(req,res){
+        let sqlquery = "INSERT INTO topics (name) VALUES(?)";
+        let newrecord;
+        if (req.body.topicname === "") {
+            res.send("You can't have an empty topic name");
+        } else {
+            newrecord = [req.body.topicname];
+        }
+        
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                res.redirect('./');
+            }
+            // updates forumData to have books from the db which are less than £20
+            let newData = Object.assign({}, forumData, {availableTopics: result});
+            console.log(newData);
+            res.render("topicadded.ejs", newData);
+        })
+    });
     app.get('/users',function(req,res){
         let sqlquery = "SELECT * FROM users";
 
@@ -31,6 +51,20 @@ module.exports = function(app, forumData) {
             let newData = Object.assign({}, forumData, {users: result});
             console.log(newData);
             res.render("users.ejs", newData);
+        })
+    });
+
+    app.post('/useradded',function(req,res){
+        let sqlquery = "INSERT INTO users (first_name, last_name, username, email) VALUES(?, ?, ?, ?)";
+        let newrecord = [req.body.firstname, req.body.lastname, req.body.username, req.body.email];
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                res.redirect('./');
+            }
+            // updates forumData to have books from the db which are less than £20
+            let newData = Object.assign({}, forumData, {availableTopics: result});
+            console.log(newData);
+            res.render("useradded.ejs", newData);
         })
     });
 

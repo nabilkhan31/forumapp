@@ -7,8 +7,18 @@
   </head>
   <body>
     <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a>
+    <form method="POST" action="/topicadded">
+      <p></p>
+      <p><b>Topic Name</b></p>
+      <input id="topic" type="text" name="topicname" value="" />
+      <p></p>
+      <input type="submit" value="Add Topic" />
+    </form>
+    <div class="options-container">
+
     <% availableTopics.map((book)=>{ %>
-        <h4><%=book.name%></h4>
+        <a class="forum-option" href="search-posts/?keyword=<%=book.name%>"><%=book.name%></a>
       <% }) %>
+    </div>
   </body>
 </html>

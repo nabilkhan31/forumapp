@@ -1,17 +1,14 @@
 <!doctype html>
 <html>
   <head>
-    <title>Add Book for <%=forumName%></title>
+    <title>Add Post for <%=forumName%></title>
     <link rel="stylesheet"  type="text/css" href="/main.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a>
-    <h1>Add a book in <%=forumName%></h1>
-
-    <!-- POST method as user is making a request to add a book -->
+    <h1>Add a Post in <%=forumName%></h1>
     <form method="POST" action="/postadded">
-      <!-- 4 fields, name, author, price, and description -->
       <p class="form-text">username </p>
       <input id="name" type="text" name="username" value="" />
 
@@ -22,8 +19,8 @@
       <textarea cols="20" rows="8" id="content" type="textarea" name="content" value=""></textarea>
       
       <p></p>
-      <!-- submits the form data -->
-      <input type="submit" value="Add Book" />
+
+      <input type="submit" value="Add Post" />
     </form>
   </body>
 </html>

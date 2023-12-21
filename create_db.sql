@@ -46,13 +46,3 @@ INSERT INTO posts (user_id, topic_id, content)
 VALUES (1, 1, 'This is a post about mathematics.'),
        (2, 3, 'I have a question about computer science.'),
        (3, 2, 'Interesting historical fact!');
-
--- SELECT 
--- 	posts.content,
---     users.first_name,
---     users.last_name,
---     users.username,
---     topics.name
--- FROM posts
--- JOIN users ON posts.user_id = users.user_id
--- JOIN topics ON posts.topic_id = topics.topic_id;
