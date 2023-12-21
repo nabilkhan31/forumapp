@@ -14,7 +14,7 @@ CREATE TABLE topics (
 );
 ALTER TABLE topics
 MODIFY name VARCHAR(50) NOT NULL;
-INSERT INTO topics (name) VALUES("Mathematics"), ("History"), ("Computer Science");
+
 
 CREATE TABLE users (
 	user_id INT PRIMARY KEY AUTO_INCREMENT,
@@ -34,8 +34,10 @@ CREATE TABLE posts (
     FOREIGN KEY (topic_id) REFERENCES topics(topic_id)
 );
 
+
+
 CREATE VIEW post_details_table AS
-SELECT posts.content,DATE(posts.timestamp) AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username 
+SELECT posts.content,posts.timestamp AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username 
 FROM posts 
 INNER JOIN topics 
 ON posts.topic_id = topics.topic_id 
