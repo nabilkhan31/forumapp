@@ -7,9 +7,9 @@
   </head>
   <body>
     <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a>
-
+    <h1>Add a user in <%=forumName%></h1>
     <form method="POST" action="/useradded">
-      <!-- 4 fields, name, author, price, and description -->
+      <!-- 4 fields, name, last name, username, email -->
       <p class="form-text">First Name </p>
       <input id="first-name" type="text" name="firstname" value="" />
 
@@ -26,6 +26,7 @@
       <!-- submits the form data -->
       <input type="submit" value="Add User" />
     </form>
+    <!-- lists the users names and usernames -->
     <h1>List of users in <%=forumName%></h1>
     <% users.map((user)=>{ %>
       <h4><%=user.first_name + " " + user.last_name%> <span id="author-username"> <%=" @" + user.username%> </span></h4>

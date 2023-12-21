@@ -24,14 +24,6 @@ CREATE TABLE users (
     email VARCHAR(100) UNIQUE
 );
 
-INSERT INTO users (first_name, last_name, username, email)
-VALUES ("John", "Doe", "JohnDoe456","jdoe@gmail.com"),
-	   ("Jane", "Smith", "JaneSmith123","jsmith@gmail.com"),
-       ("Tony", "Stark", "TonyStark789","tstark@gmail.com");
-
-INSERT INTO users (first_name, last_name, username, email)
-VALUES ("John", "Doe", "JohnDoe454","jdoe@gmail.cos");
-
 CREATE TABLE posts (
     post_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
@@ -42,7 +34,11 @@ CREATE TABLE posts (
     FOREIGN KEY (topic_id) REFERENCES topics(topic_id)
 );
 
-INSERT INTO posts (user_id, topic_id, content)
-VALUES (1, 1, 'This is a post about mathematics.'),
-       (2, 3, 'I have a question about computer science.'),
-       (3, 2, 'Interesting historical fact!');
+CREATE VIEW post_details_table AS
+SELECT posts.content,DATE(posts.timestamp) AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username 
+FROM posts 
+INNER JOIN topics 
+ON posts.topic_id = topics.topic_id 
+INNER JOIN users 
+ON posts.user_id = users.user_id;
+

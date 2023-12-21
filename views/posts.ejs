@@ -8,12 +8,14 @@
   <body>
     <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a>
     <h1>Posts for <%=forumName%></h1>
+    <!-- form which takes in topic name -->
     <form action="/search-posts" method="GET">
       <p>Search for a particular topic</p>
       <input id="search-box" type="text" name="keyword" value="">
       <input type="submit" value="Search" >
     </form>
     <h1>All Posts</h1>
+    <!-- lists the posts with the post details -->
     <div class="list-container">
       <% users.map((post)=>{ %>
         <div class="card">

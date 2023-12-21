@@ -42,42 +42,7 @@ a {
   text-decoration: none;
   color: rgb(0, 45, 98);
 }
-/* h2 {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    color: cadetblue;
-}
 
-p,li {
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.links:link {
-    color: orangered;
-    text-decoration: none;
-    padding:5px;
-    transition: 0.1s;
-  }
-  
-  .links:visited {
-    color: tomato;
-    text-decoration: none;
-    padding:5px;
-  }
-  
-  .links:hover {
-    color: white;
-    text-decoration: none;
-    background-color: orangered;
-    padding:5px;
-  }
-  
-  .links:active {
-    opacity: 80%;
-    text-decoration: none;
-    padding:5px;
-  }
-/*  */
 .home-btn, input[type="submit"] {
   border: none;
   background-color: rgb(0, 45, 98);;

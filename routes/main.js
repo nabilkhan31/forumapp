@@ -8,19 +8,19 @@ module.exports = function(app, forumData) {
         res.render('about.ejs', forumData)
     });
     app.get('/topics',function(req,res){
+        // retrieves all of the information from topics table
         let sqlquery = "SELECT * FROM topics";
-
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./');
             }
-            // updates forumData to have books from the db which are less than £20
             let newData = Object.assign({}, forumData, {availableTopics: result});
             console.log(newData);
             res.render("topics.ejs", newData);
         })
     });
 
+    // inserts value from search box into database
     app.post('/topicadded',function(req,res){
         let sqlquery = "INSERT INTO topics (name) VALUES(?)";
         let newrecord;
@@ -34,12 +34,13 @@ module.exports = function(app, forumData) {
             if (err) {
                 res.redirect('./');
             }
-            // updates forumData to have books from the db which are less than £20
             let newData = Object.assign({}, forumData, {availableTopics: result});
             console.log(newData);
             res.render("topicadded.ejs", newData);
         })
     });
+
+    // returns all information about users from users table
     app.get('/users',function(req,res){
         let sqlquery = "SELECT * FROM users";
 
@@ -47,13 +48,13 @@ module.exports = function(app, forumData) {
             if (err) {
                 res.redirect('./');
             }
-            // updates forumData to have books from the db which are less than £20
             let newData = Object.assign({}, forumData, {users: result});
             console.log(newData);
             res.render("users.ejs", newData);
         })
     });
 
+    // inserts information from form to create a new user in users table
     app.post('/useradded',function(req,res){
         let sqlquery = "INSERT INTO users (first_name, last_name, username, email) VALUES(?, ?, ?, ?)";
         let newrecord = [req.body.firstname, req.body.lastname, req.body.username, req.body.email];
@@ -61,33 +62,35 @@ module.exports = function(app, forumData) {
             if (err) {
                 res.redirect('./');
             }
-            // updates forumData to have books from the db which are less than £20
             let newData = Object.assign({}, forumData, {availableTopics: result});
             console.log(newData);
             res.render("useradded.ejs", newData);
         })
     });
 
+    // uses the view post_details_table so that query is cleaner
+    // orders posts by the date it was posted, so most recent bubble to top
     app.get('/posts', function (req,res) {
-        let sqlquery = "SELECT posts.content,DATE(posts.timestamp) AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username FROM posts INNER JOIN topics ON posts.topic_id = topics.topic_id INNER JOIN users ON posts.user_id = users.user_id ORDER BY posts.timestamp DESC;"
+        let sqlquery = "SELECT * FROM post_details_table ORDER BY post_date DESC";
 
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./');
             }
-            // updates forumData with all the books which have the characters from req.query.keyword
+            // updates forumData with all the posts ordered from most recent to least
             let newData = Object.assign({}, forumData, {users: result});
             console.log(newData);
             res.render("posts.ejs", newData);
         })
-    })
-        // res.render('posts.ejs', forumData);                                                           
+    })                                                   
        
     app.get('/addPosts', function (req,res) {
         res.render('addPosts.ejs', forumData);                                                                     
     });
+
     app.post('/postadded', function (req,res) {
         // saving data in database
+        // gets user id and topicid from topic name and username
         let findUserId = "SELECT user_id FROM users WHERE username = '" + req.body.username + "';"
         let findTopicId = "SELECT topic_id FROM topics WHERE topics.name = '" + req.body.topic + "';"
         db.query(findUserId, (err, result) => {
@@ -98,7 +101,6 @@ module.exports = function(app, forumData) {
             if (result.length === 0) {
                 // User with the specified username does not exist
                 res.render('usernotfound.ejs', forumData);
-                // return res.status(400).send("User not found.");
             }
 
             else {
@@ -109,7 +111,7 @@ module.exports = function(app, forumData) {
                     }
 
                     if (result.length === 0) {
-                        // User with the specified username does not exist
+                        // Specified topic does not exist
                         res.render('topicnotfound.ejs', forumData);
                     }
                     else {
@@ -122,11 +124,9 @@ module.exports = function(app, forumData) {
                             return console.error(err.message);
                           }
                           else {
-                            // sends book details
                             let newData = Object.assign({}, forumData, {users: req.body.topic});
                             console.log(newData);
                             res.render("postadded.ejs", newData);
-                            // res.send(' This book is added to database, Name: ' + req.body.username + ', Author: ' + req.body.topic + ', Price: '+ req.body.content);
                           }
                         });
                     }
@@ -137,14 +137,11 @@ module.exports = function(app, forumData) {
 
     app.get('/search-posts', function (req, res) {
         // returns records which are like the keyword inputted by user, advanced
-
-        let sqlquery = "SELECT posts.content,DATE(posts.timestamp) AS post_date,TIME(posts.timestamp) AS post_time,topics.name,users.first_name,users.last_name,users.username FROM posts INNER JOIN topics ON posts.topic_id = topics.topic_id INNER JOIN users ON posts.user_id = users.user_id WHERE topics.name = '" + req.query.keyword + "' ORDER BY posts.timestamp DESC;";
-
+        let sqlquery = "SELECT * FROM post_details_table WHERE name = '" + req.query.keyword + "' ORDER BY post_date DESC;";
         db.query(sqlquery, (err, result) => {
             if (err) {
                 res.redirect('./');
             }
-            // updates forumData with all the books which have the characters from req.query.keyword
             let newData = Object.assign({}, forumData, {users: result});
             console.log(newData);
             res.render("search-posts.ejs", newData);

@@ -8,6 +8,7 @@
   <body>
     <a href="/"><button class="home-btn"><i class="fa fa-home"></i> Home</button></a>
     <h1>Add a Post in <%=forumName%></h1>
+    <!-- form for adding post, takes in username topic and content -->
     <form method="POST" action="/postadded">
       <p class="form-text">username </p>
       <input id="name" type="text" name="username" value="" />
@@ -17,9 +18,7 @@
 
       <p class="form-text">content </p>
       <textarea cols="20" rows="8" id="content" type="textarea" name="content" value=""></textarea>
-      
       <p></p>
-
       <input type="submit" value="Add Post" />
     </form>
   </body>
